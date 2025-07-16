@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.9.6'
+    }
+
+    environment {
+        GIT_REPO = 'https://github.com/naveen0079111/Employee-Management'
+        BRANCH = 'main'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: "${BRANCH}", url: "${GIT_REPO}"
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Archive JAR') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Build successful!'
+        }
+        failure {
+            echo '❌ Build failed!'
+        }
+    }
+}
