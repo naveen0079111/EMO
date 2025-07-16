@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        GIT_REPO = 'https://github.com/naveen0079111/Employee-Management'
+        GIT_REPO = 'https://github.com/naveen0079111/EMO.git'
         BRANCH = 'main'
     }
 
